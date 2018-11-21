@@ -9,7 +9,7 @@ const firebase = require('./plugins/firebase')
 const kenticoCloud = require('./plugins/kentico-cloud')
 const dataProcessor = require('./plugins/data-processor')
 morgan('tiny')
-app.use(cors)
+app.use(cors())
 
 // Returns all processed API data
 app.get('/api/tools', (req, res) => {
