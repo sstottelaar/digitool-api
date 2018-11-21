@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
+const cors = require('cors')
 require('dotenv').config()
 
 // Require plugins
@@ -8,6 +9,7 @@ const firebase = require('./plugins/firebase')
 const kenticoCloud = require('./plugins/kentico-cloud')
 const dataProcessor = require('./plugins/data-processor')
 morgan('tiny')
+app.use(cors)
 
 // Returns all processed API data
 app.get('/api/tools', (req, res) => {
