@@ -5,6 +5,7 @@ require('firebase/firestore')
 firebase.initializeApp({
     apiKey: process.env.FIREBASE_API_KEY,
     projectId: process.env.PROJECT_ID,
+    databaseURL: process.env.DATABASE_URL
 })
 
 const db = firebase.firestore()
@@ -13,11 +14,11 @@ db.settings({
     timestampsInSnapshots: true
 })
 
-async function getAllPostData() {
-
-    const toolsSnapshot = await db.collection('tools').get()
+async function getAllData() {
+    // Define DB reference
+    const toolsSnapshot = await db.collection('posts').get()
     const tools = []
-
+    
     toolsSnapshot.forEach((doc) => {
         tools.push({
             id: doc.id,
@@ -25,11 +26,11 @@ async function getAllPostData() {
         })
     })
 
+    // Return data back to function
     return tools
 }
 
 // Export modules
 module.exports = {
-    db,
-    getAllPostData
+    getAllData
 }
