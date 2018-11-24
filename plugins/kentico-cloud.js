@@ -7,7 +7,7 @@ const deliveryClient = new kenticoCloud.DeliveryClient({
 
 async function getAllData() {
     // Define KC query
-    const postSnapshot = await deliveryClient.items().type('post').getPromise()
+    const postSnapshot = await deliveryClient.items().type('post').orderParameter('system.last_modified', kenticoCloud.SortOrder.desc).getPromise()
 
     if(postSnapshot.items.length > 0) {        
         // Give data back to caller
