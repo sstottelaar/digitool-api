@@ -30,7 +30,50 @@ async function getAllData() {
     return tools
 }
 
+async function addAllPosts(payload) {
+    // Init new Firebase batch
+    let batch = db.batch()
+
+    // Write new batch entry for each post
+    payload.forEach((post) => {
+        let tempRef = db.collection('posts').doc(post.id)
+        batch.set(tempRef, {
+            id: post.id,
+            name: post.name,
+            likes: 0
+        })
+    })
+
+    return batch.commit()
+}
+
+async function likePost(payload) {
+    
+    let tempRef = db.collection('posts').doc(payload)
+
+    // let result = tempRef.update({ likes: 5 })
+
+    let transaction = db.runTransaction(t => {
+        return t.get(tempRef)
+            .then(doc => {
+                let newLikeCount = doc.data().likes + 1
+                t.update(tempRef, { likes: newLikeCount })
+            })
+            .then(result => {
+                return "Transaction successful"
+            })
+            .catch(err => {
+                console.error(err)
+                return err
+            })
+    })
+
+    return transaction
+}
+
 // Export modules
 module.exports = {
-    getAllData
+    getAllData,
+    addAllPosts,
+    likePost
 }

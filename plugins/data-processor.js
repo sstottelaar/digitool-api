@@ -42,7 +42,35 @@ async function getAllCategories() {
     return [...new Set(tempCategories.map(item => item.name))]
 }
 
+async function initAllPosts() {
+    // Init kentico
+    const kenticoCloudData = await kenticoCloud.getAllData()
+
+    tempPosts = []
+
+    // Create new entry for each post
+    kenticoCloudData.forEach((post) => {
+        tempPosts.push({
+            id: post.system.id,
+            name: post.system.name
+        })
+    })
+
+    // Perform write on firebase
+    firebase.addAllPosts(tempPosts)
+        .then(() => {
+            return "Data has been added"
+        })
+        .catch((err) => {
+            return err
+        })
+
+    // Return result
+    return tempPosts
+}
+
 module.exports = {
     getAllPosts,
-    getAllCategories
+    getAllCategories,
+    initAllPosts
 }

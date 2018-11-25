@@ -23,6 +23,7 @@ app.get('/api/tools', (req, res) => {
     })
 })
 
+// Return all categories
 app.get('/api/tools/categories/', (req, res) => {
     dataProcessor.getAllCategories()
     .then((data) => {
@@ -31,20 +32,36 @@ app.get('/api/tools/categories/', (req, res) => {
     })
 })
 
+// Like a post
+app.get('/api/tools/:id/like', (req, res) => {
+    firebase.likePost(req.params.id)
+    .then((result) => {
+        res.json(result)
+    })
+    .catch((err) => {
+        res.status(500).send(err)
+    })
+})
+
 // DEV ONLY
-app.get('/api/tools/firebase', (req, res) => {
-    
+// app.get('/api/tools/init', (req, res) => {
+//     dataProcessor.initAllPosts()
+//     .then((data) => {
+//         res.send(data)
+//     })
+// })
+
+// DEV ONLY
+app.get('/api/tools/firebase', (req, res) => {    
     firebase.getAllData()
     .then((data) => {
-        console.log(data)
         res.send(data)
     })
     .catch((err) => {
         console.error(err)
         res.status(500)
         res.send('An error occurred')
-    })
-    
+    })    
 })
 
 // DEV ONLY
@@ -65,4 +82,4 @@ app.get('/*', (req, res) => {
 })
 
 // Setup server
-app.listen(process.env.PORT || 3000, () => console.log("Server is running"))
+app.listen(process.env.PORT, () => console.log("Server is running on port", process.env.PORT))
