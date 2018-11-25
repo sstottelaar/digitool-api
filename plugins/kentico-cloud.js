@@ -20,6 +20,24 @@ async function getAllData() {
     }    
 }
 
+// Get single post from KC
+async function getSinglePost(post) {
+    if(post.length > 0) {
+        const postSnapshot = await deliveryClient
+            .item(post)
+            .elementsParameter(['name', 'website_url', 'screenshot', 'article_about_tool', 'rating'])
+            .getPromise()
+
+        return postSnapshot.item
+    } else {
+        throw {
+            status: 500,
+            errorMessage: "No post given"
+        }
+    }
+}
+
 module.exports = {
-    getAllData
+    getAllData,
+    getSinglePost
 }

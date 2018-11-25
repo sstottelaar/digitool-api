@@ -51,8 +51,6 @@ async function likePost(payload) {
     
     let tempRef = db.collection('posts').doc(payload)
 
-    // let result = tempRef.update({ likes: 5 })
-
     let transaction = db.runTransaction(t => {
         return t.get(tempRef)
             .then(doc => {

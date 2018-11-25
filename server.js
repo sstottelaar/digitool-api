@@ -43,6 +43,14 @@ app.get('/api/tools/:id/like', (req, res) => {
     })
 })
 
+app.get('/api/tools/:id', (req, res) => {
+    kenticoCloud.getSinglePost(req.params.id)
+    .then((result) => {
+        console.log(result)
+        res.json(result)
+    })
+})
+
 // DEV ONLY
 // app.get('/api/tools/init', (req, res) => {
 //     dataProcessor.initAllPosts()
