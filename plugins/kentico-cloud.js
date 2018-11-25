@@ -25,7 +25,7 @@ async function getSinglePost(post) {
     if(post.length > 0) {
         const postSnapshot = await deliveryClient
             .item(post)
-            .elementsParameter(['name', 'website_url', 'screenshot', 'article_about_tool', 'rating'])
+            .elementsParameter(['name', 'website_url', 'screenshot', 'article_about_tool', 'rating', 'short_description'])
             .getPromise()
 
         return postSnapshot.item
