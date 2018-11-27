@@ -33,7 +33,7 @@ app.get('/api/categories/', (req, res) => {
 })
 
 // Like a post
-app.get('/api/tools/:id/like', (req, res) => {
+app.put('/api/tools/:id/like', (req, res) => {
     firebase.likePost(req.params.id)
     .then((result) => {
         res.json(result)
