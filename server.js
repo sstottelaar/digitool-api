@@ -12,7 +12,7 @@ morgan('tiny')
 app.use(cors())
 
 // Returns all processed API data
-app.get('/api/tools', (req, res) => {
+app.get('/api/tools/', (req, res) => {
     dataProcessor.getAllPosts()
     .then((data) => {
         res.send(data)
@@ -24,7 +24,7 @@ app.get('/api/tools', (req, res) => {
 })
 
 // Return all categories
-app.get('/api/tools/categories/', (req, res) => {
+app.get('/api/categories/', (req, res) => {
     dataProcessor.getAllCategories()
     .then((data) => {
         console.log(data)
@@ -43,6 +43,7 @@ app.get('/api/tools/:id/like', (req, res) => {
     })
 })
 
+// Get single post
 app.get('/api/tools/:id', (req, res) => {
     kenticoCloud.getSinglePost(req.params.id)
     .then((result) => {
