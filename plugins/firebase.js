@@ -69,9 +69,43 @@ async function likePost(payload) {
     return transaction
 }
 
+async function addPost(payload) {
+
+    const tempRef = db.collection('posts').doc(payload.message.id)
+    const data = {
+        id: payload.message.id,
+        likes: 0
+    }
+
+    if(payload.data.items[0].type == "post") {
+        return tempRef.get()
+            .then(docSnapshot => {
+                if(!docSnapshot.exists) {
+                    try {
+                        tempRef.set(data)
+                        return "Post is successfully added"
+                    } catch (error) {
+                        throw {
+                            message: "Technical error"
+                        }
+                    }
+                } else {
+                    throw {
+                        message: "Post already exists"
+                    }
+                }
+            })
+        } else {
+            throw {
+                message: "Unexpected input type"
+            }
+        }
+}
+
 // Export modules
 module.exports = {
     getAllData,
     addAllPosts,
-    likePost
+    likePost,
+    addPost
 }

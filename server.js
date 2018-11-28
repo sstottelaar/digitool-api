@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
 // Require plugins
@@ -10,6 +11,7 @@ const kenticoCloud = require('./plugins/kentico-cloud')
 const dataProcessor = require('./plugins/data-processor')
 morgan('tiny')
 app.use(cors())
+app.use(bodyParser.json())
 
 // Returns all processed API data
 app.get('/api/tools/', (req, res) => {
@@ -50,6 +52,21 @@ app.get('/api/tools/:id', (req, res) => {
         console.log(result)
         res.json(result)
     })
+})
+
+// Add new post
+app.post('/api/tools/', (req, res) => {
+    const data = req.body
+
+    firebase.addPost(data)
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((error) => {
+            res.status(500).send(error)
+        })
+
+    console.log(req.body.message)
 })
 
 // DEV ONLY
