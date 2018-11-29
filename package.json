@@ -1,11 +1,11 @@
 {
   "name": "digitool-api",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "nodemon server.js"
+    "run": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +19,15 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.7",
     "rxjs": "^6.3.3"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sstottelaar/digitool-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sstottelaar/digitool-api/issues"
+  },
+  "homepage": "https://github.com/sstottelaar/digitool-api#readme",
+  "description": ""
 }

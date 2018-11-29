@@ -21,8 +21,8 @@ async function getAllData() {
     
     toolsSnapshot.forEach((doc) => {
         tools.push({
-            id: doc.id,
-            data: doc.data()
+            codename: doc.id,
+            data: doc.data(),
         })
     })
 
@@ -36,7 +36,7 @@ async function addAllPosts(payload) {
 
     // Write new batch entry for each post
     payload.forEach((post) => {
-        let tempRef = db.collection('posts').doc(post.id)
+        let tempRef = db.collection('posts').doc(post.codename)
         batch.set(tempRef, {
             id: post.id,
             name: post.name,
@@ -71,10 +71,11 @@ async function likePost(payload) {
 
 async function addPost(payload) {
 
-    const tempRef = db.collection('posts').doc(payload.message.id)
+    const tempRef = db.collection('posts').doc(payload.data.items[0].codename)
     const data = {
         id: payload.message.id,
-        likes: 0
+        likes: 0,
+        codename: payload.data.items[0].codename
     }
 
     if(payload.data.items[0].type == "post") {

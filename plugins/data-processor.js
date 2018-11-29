@@ -13,7 +13,7 @@ async function getAllPosts() {
     kenticoCloudData.forEach((post) => {
         post.likes = {}
         firebaseData.forEach((entry) => {
-            if(post.system.id == entry.data.id) {
+            if(post.system.codename == entry.codename) {
                 post.likes.count = entry.data.likes
             }
         })
@@ -52,7 +52,8 @@ async function initAllPosts() {
     kenticoCloudData.forEach((post) => {
         tempPosts.push({
             id: post.system.id,
-            name: post.system.name
+            name: post.system.name,
+            codename: post.system.codename
         })
     })
 
@@ -62,7 +63,7 @@ async function initAllPosts() {
             return "Data has been added"
         })
         .catch((err) => {
-            return err
+            throw err
         })
 
     // Return result

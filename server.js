@@ -14,7 +14,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Returns all processed API data
-app.get('/api/tools/', (req, res) => {
+app.get('/api/tools', (req, res) => {
     dataProcessor.getAllPosts()
     .then((data) => {
         res.send(data)
@@ -26,7 +26,7 @@ app.get('/api/tools/', (req, res) => {
 })
 
 // Return all categories
-app.get('/api/categories/', (req, res) => {
+app.get('/api/categories', (req, res) => {
     dataProcessor.getAllCategories()
     .then((data) => {
         console.log(data)
@@ -55,7 +55,7 @@ app.get('/api/tools/:id', (req, res) => {
 })
 
 // Add new post
-app.post('/api/tools/', (req, res) => {
+app.post('/api/tools', (req, res) => {
     const data = req.body
 
     firebase.addPost(data)
@@ -70,7 +70,7 @@ app.post('/api/tools/', (req, res) => {
 })
 
 // DEV ONLY
-// app.get('/api/tools/init', (req, res) => {
+// app.get('/api/dev/init', (req, res) => {
 //     dataProcessor.initAllPosts()
 //     .then((data) => {
 //         res.send(data)
@@ -78,7 +78,7 @@ app.post('/api/tools/', (req, res) => {
 // })
 
 // DEV ONLY
-app.get('/api/tools/firebase', (req, res) => {    
+app.get('/api/dev/firebase', (req, res) => {    
     firebase.getAllData()
     .then((data) => {
         res.send(data)
@@ -91,7 +91,7 @@ app.get('/api/tools/firebase', (req, res) => {
 })
 
 // DEV ONLY
-app.get('/api/tools/kentico', (req, res) => {    
+app.get('/api/dev/kentico', (req, res) => {
     kenticoCloud.getAllData()
     .then((data) => {
         res.send(data)

@@ -21,6 +21,7 @@ async function getAllData() {
 }
 
 // Get single post from KC
+// TODO: add error handling when no post is found
 async function getSinglePost(post) {
     if(post.length > 0) {
         const postSnapshot = await deliveryClient
