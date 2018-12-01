@@ -71,6 +71,7 @@ async function likePost(payload) {
 
 async function addPost(payload) {
 
+    // Init the DB and data
     const tempRef = db.collection('posts').doc(payload.data.items[0].codename)
     const data = {
         id: payload.message.id,
@@ -78,6 +79,7 @@ async function addPost(payload) {
         codename: payload.data.items[0].codename
     }
 
+    // Check if content type is a post
     if(payload.data.items[0].type == "post") {
         return tempRef.get()
             .then(docSnapshot => {
@@ -91,15 +93,11 @@ async function addPost(payload) {
                         }
                     }
                 } else {
-                    throw {
-                        message: "Post already exists"
-                    }
+                    return "Post already exists"
                 }
             })
         } else {
-            throw {
-                message: "Unexpected input type"
-            }
+            return "Unexpected input type"
         }
 }
 

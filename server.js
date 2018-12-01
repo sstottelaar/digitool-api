@@ -29,7 +29,6 @@ app.get('/api/tools', (req, res) => {
 app.get('/api/categories', (req, res) => {
     dataProcessor.getAllCategories()
     .then((data) => {
-        console.log(data)
         res.send(data)
     })
 })
@@ -63,10 +62,8 @@ app.post('/api/tools', (req, res) => {
             res.send(result)
         })
         .catch((error) => {
-            res.status(500).send(error)
+            res.status(200).send(error)
         })
-
-    console.log(req.body.message)
 })
 
 // DEV ONLY
