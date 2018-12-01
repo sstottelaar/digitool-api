@@ -17,6 +17,7 @@ app.use(bodyParser.json())
 // Returns all processed API data
 app.get('/api/tools', (req, res) => {
     if(!cache.get('cachedData')) {
+        console.log("Request not cached")
         dataProcessor.getAllPosts()
             .then((data) => {
                 cache.put('cachedData', data, 600000)
@@ -27,6 +28,7 @@ app.get('/api/tools', (req, res) => {
                 res.status(500).json(err)
             })
     } else {
+        console.log("Request loaded from cache")
         let data = cache.get('cachedData')
         res.send(data)
     }
