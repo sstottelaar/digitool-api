@@ -3,6 +3,7 @@ const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+let cache = require('memory-cache')
 require('dotenv').config()
 
 // Require plugins
@@ -15,14 +16,20 @@ app.use(bodyParser.json())
 
 // Returns all processed API data
 app.get('/api/tools', (req, res) => {
-    dataProcessor.getAllPosts()
-    .then((data) => {
+    if(!cache.get('cachedData')) {
+        dataProcessor.getAllPosts()
+            .then((data) => {
+                cache.put('cachedData', data, 600000)
+                res.send(data)
+            })
+            .catch((err) => {
+                console.error(err)
+                res.status(500).json(err)
+            })
+    } else {
+        let data = cache.get('cachedData')
         res.send(data)
-    })
-    .catch((err) => {
-        console.error(err)
-        res.status(500).json(err)
-    })
+    }
 })
 
 // Return all categories
