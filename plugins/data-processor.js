@@ -1,5 +1,6 @@
 const firebase = require('./firebase')
 const kenticoCloud = require('./kentico-cloud')
+const _ = require('lodash')
 
 async function getAllPosts() {
     // Init all services
@@ -39,7 +40,7 @@ async function getAllCategories() {
     })
 
     // Return unique items in array
-    return [...new Set(tempCategories.map(item => item.name))]
+    return _.uniqBy(tempCategories, 'codename')
 }
 
 async function initAllPosts() {
