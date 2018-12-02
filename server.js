@@ -10,7 +10,7 @@ require('dotenv').config()
 const firebase = require('./plugins/firebase')
 const kenticoCloud = require('./plugins/kentico-cloud')
 const dataProcessor = require('./plugins/data-processor')
-morgan('tiny')
+app.use(morgan('common'))
 app.use(cors())
 app.use(bodyParser.json())
 
