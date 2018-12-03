@@ -39,8 +39,17 @@ async function getAllCategories() {
         tempCategories.push(entry.category.value[0])
     })
 
+    let uniqueCategories = _.uniqBy(tempCategories, 'codename')
+    let orderedCategories = _.sortBy(uniqueCategories, ['name'], ['asc'])   
+
+    // Add all as an option
+    orderedCategories.unshift({
+        name: "All",
+        codename: "all"
+    })
+
     // Return unique items in array
-    return _.uniqBy(tempCategories, 'codename')
+    return orderedCategories
 }
 
 async function initAllPosts() {

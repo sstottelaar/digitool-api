@@ -13,6 +13,7 @@ async function getAllData() {
         // Give data back to caller
         return postSnapshot.items
     } else {
+        console.log(postSnapshot)
         throw {
             status: 500,
             errorMessage: "No data available"

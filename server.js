@@ -65,7 +65,6 @@ app.get('/api/tools/:id', (req, res) => {
 // Add new post
 app.post('/api/tools', (req, res) => {
     const data = req.body
-
     firebase.addPost(data)
         .then((result) => {
             res.send(result)
