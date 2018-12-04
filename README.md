@@ -10,4 +10,4 @@ This projects uses:
 * Firebase
 
 ## More information
-For more information check out [Digitool.io](https://www.digitool.io) or the my [LinkedIn](https://www.digitool.io).
+For more information check out [Digitool.io](https://www.digitool.io) or the my [LinkedIn](https://www.linkedin.com/in/sjoerdstottelaar/).
